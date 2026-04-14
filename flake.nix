@@ -19,6 +19,7 @@ rec {
           default = pkgs.mkShell {
             name = description;
             shellHook = ''
+              export TYPST_FONT_PATHS="$PWD/fonts"
               unset SOURCE_DATE_EPOCH
             '';
             packages = with pkgs; [
