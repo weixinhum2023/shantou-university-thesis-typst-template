@@ -18,7 +18,7 @@
     #set text(font: 字体.宋体, size: 字号.小四)
     #set block(above: 1.25em, below: 1.25em)
     //判断对象的文字是否为参考文献，如果是的话，使用不同的格式
-    #it.prefix() #it.body()#box(width: 1fr, repeat(".", gap: 0.15em)) (#it.page())
+    #it.prefix() #it.body()#box(width: 1fr, repeat($dot.op$, gap: 0.15em)) (#it.page())
     #v(1em)
     #v(-1em)
   ]
@@ -26,7 +26,7 @@
   #show outline.entry.where(level: 3): it => [
     #set text(font: 字体.宋体, size: 字号.小四)
     #set block(above: 1.25em, below: 1.25em)
-    #it.prefix() #it.body()#box(width: 1fr, repeat(".", gap: 0.15em)) (#it.page())
+    #it.prefix() #it.body()#box(width: 1fr, repeat($dot.op$, gap: 0.15em)) (#it.page())
     #v(1em)
     #v(-1em)
   ]
@@ -36,7 +36,7 @@
     #set block(above: 1.25em, below: 1.25em)
     #it.indented(
       numbering("1.", ..counter(outline.entry.where(level: 1)).get()),
-      [#it.body() #box(width: 1fr, repeat(".", gap: 0.15em)) (#it.page())],
+      [#it.body() #box(width: 1fr, repeat($dot.op$, gap: 0.15em)) (#it.page())],
     )
     #v(1em)
     #v(-1em)
