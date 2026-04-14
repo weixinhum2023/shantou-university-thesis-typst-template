@@ -18,6 +18,13 @@
 
   #set text(font: 字体.黑体, size: 字号.小四)
   #set align(left)
+  #set page(
+    footer: context [
+      #set align(center)
+      #set text(size: 字号.小五, font: 字体.宋体)
+      #counter(page).display("1")
+    ],
+  )
 
   // #set par(
   // justify: true,

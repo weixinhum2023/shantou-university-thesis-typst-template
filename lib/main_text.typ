@@ -1,9 +1,11 @@
 #import "config.typ": 字体, 字号
+#import "thanks_page.typ": *
 #let fig = counter("fig") // 图编号计数器
 #let tab = counter("tab") // 表编号计数器
 // 正文页面设置：包裹正文内容
 #let setup-bodytext(body) = [
   #set text(lang: "zh")  // 设置中文语言，使得section等显示为"第X节"而非英文
+
   /************标题格式设置************/
   #set heading(numbering: "1.1")// 设置章节编号格式为“1.1”，同时这句话会启用章节编号功能
   #set math.equation(numbering: "(1)")
@@ -104,7 +106,6 @@
     leading: 字号.小四 * 1.25, // 1.25倍行距 = 字号 + 字号*0.25
   ) // 两端对齐，段前缩进2字符
 
-
   /************页脚设置************/
   #set page(
     footer: context [
@@ -140,9 +141,7 @@
     #tab.step()
   ]
 
-
   /************其他显示内容设置************/
-
   #counter(page).update(1) // 页码从1开始
   #body
 ]
