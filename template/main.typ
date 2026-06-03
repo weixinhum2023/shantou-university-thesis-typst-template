@@ -2,7 +2,7 @@
 #import "lib/references.typ": setup-bibliography
 
 #[
-  #show: text-body => template-main(
+  #show: template-main.with(
     /************封面&致谢************/
     (
       title: "汕头大学学位论文格式模板",
@@ -54,18 +54,13 @@
         最后感谢我的家人，是他们多年来对我学业的支持才让我走到这一步，才使我得以顺利完成学业。
       ],
     ),
-    text-body,
   )
 
   /************正文************/
-  #import "chapter_1.typ": *
-  #import "chapter_2.typ": *
-  #import "chapter_3.typ": *
-  #import "chapter_4.typ": *
-  #Chapter_one;//显示第一章内容
-  #Chapter_two;//显示第二章内容
-  #Chapter_three;//显示第三章内容
-  #Chapter_four;//显示第四章内容
+  #include "chapter_1.typ"
+  #include "chapter_2.typ"
+  #include "chapter_3.typ"
+  #include "chapter_4.typ"
 ]
 
 /****参考文献****/
