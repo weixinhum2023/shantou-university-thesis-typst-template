@@ -1,4 +1,4 @@
-#import "config.typ": 字体, 字号
+#import "font_config.typ": *
 #import "thanks_page.typ": *
 #let fig = counter("fig") // 图编号计数器
 #let tab = counter("tab") // 表编号计数器
@@ -36,7 +36,7 @@
     #fig.update(1)// 每个一级标题开始时，图编号重置为0
     #tab.update(1)// 每个一级标题开始时，表编号重置为0
     #set align(center)
-    #set text(size: 字号.三号, font: 字体.黑体)
+    #set text(size: 三号, font: 黑体)
     #set par(first-line-indent: 0em)//设置标题不要缩进
     //一级标题直接分页，避免孤行
     #pagebreak(weak: true)//假设当前页面并没有包含任何内容,pagebreak(weak: true)不会创建新的页面
@@ -48,7 +48,7 @@
     level: 2,
   ): it => [
     #set align(left)
-    #set text(size: 字号.小三, font: 字体.黑体)
+    #set text(size: 小三, font: 黑体)
     #set par(first-line-indent: 0em)
     /*去除孤行*/
     #block(breakable: false, height: 3em)//设置一个高度为3em的不可分页的空白块，这样标题如果在页底就会被整体移到下一页
@@ -61,7 +61,7 @@
     level: 3,
   ): it => [
     #set align(left)
-    #set text(size: 字号.四号, font: 字体.黑体)
+    #set text(size: 四号, font: 黑体)
     #set par(first-line-indent: 0em)
     /*去除孤行*/
     #block(breakable: false, height: 3em)//设置一个高度为3em的不可分页的空白块，这样标题如果在页底就会被整体移到下一页
@@ -74,7 +74,7 @@
     level: 4,
   ): it => [
     #set align(left)
-    #set text(size: 字号.小四, font: 字体.黑体)
+    #set text(size: 小四, font: 黑体)
     #set par(first-line-indent: 0em)
     /*去除孤行*/
     #block(breakable: false, height: 3em)//设置一个高度为3em的不可分页的空白块，这样标题如果在页底就会被整体移到下一页
@@ -87,7 +87,7 @@
     level: 5,
   ): it => [
     #set align(left)
-    #set text(size: 字号.小四, font: 字体.黑体)
+    #set text(size: 小四, font: 黑体)
     #set par(first-line-indent: 0em)
     /*去除孤行*/
     #block(breakable: false, height: 3em)//设置一个高度为3em的不可分页的空白块，这样标题如果在页底就会被整体移到下一页
@@ -98,19 +98,19 @@
   ]
 
   /************正文格式设置************/
-  #set text(size: 字号.小四) // 正文字号设置为小四
-  #set text(font: 字体.宋体) // 正文字体设置为宋体
+  #set text(size: 小四) // 正文字号设置为小四
+  #set text(font: 宋体) // 正文字体设置为宋体
   #set par(
     justify: true,
     first-line-indent: 2em,
-    leading: 字号.小四 * 1.25, // 1.25倍行距 = 字号 + 字号*0.25
+    leading: 小四 * 1.25, // 1.25倍行距 = 字号 + 字号*0.25
   ) // 两端对齐，段前缩进2字符
 
   /************页脚设置************/
   #set page(
     footer: context [
       #set align(center)
-      #set text(size: 字号.小五, font: 字体.宋体)
+      #set text(size: 小五, font: 宋体)
       #counter(page).display("1")
     ],
   )
@@ -118,7 +118,7 @@
   /************图片标题格式设置************/
   #show figure.caption: it => [
     // 设置文字为小五号宋体
-    #set text(size: 字号.小五, font: 字体.宋体)
+    #set text(size: 小五, font: 宋体)
     #let chapter = counter(heading).get().at(0)
     图 #chapter #h(-0.25em)- #h(-0.25em) #context fig.display() #h(0.25em) #it.body
     #fig.step()
@@ -129,7 +129,7 @@
     // 将题注和表格内容包裹在不可分页的块中
     #block(breakable: false)[
       // 设置文字为小五号宋体
-      #set text(size: 字号.小五, font: 字体.宋体)
+      #set text(size: 小五, font: 宋体)
       #let chapter = counter(heading).get().at(0)
       // 显示题注
       #align(center)[

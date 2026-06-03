@@ -1,4 +1,4 @@
-#import "config.typ": 字体, 字号
+#import "font_config.typ": *
 
 #let bachelor-decl-page(
   info: (:
@@ -14,8 +14,8 @@
       stroke: none, // 无边框线
       text(
         // 文本内容
-        font: 字体.楷体, // 楷体
-        size: 字号.小三,
+        font: 楷体, // 楷体
+        size: 小三,
         body, // 接收的文本内容
       ),
     )
@@ -27,8 +27,8 @@
       inset: (x: 0pt, bottom: 1pt), // 左右无内边距，底部内边距为0pt
       stroke: (bottom: 0.5pt + black), // 底部边框：0.5pt黑色实线（常用于分隔线）
       text(
-        font: 字体.楷体, // 楷体
-        size: 字号.小三,
+        font: 楷体, // 楷体
+        size: 小三,
         bottom-edge: "descender", // 文本基线对齐（避免字符下沉导致的间距不均）
         body,
       ),
@@ -39,16 +39,16 @@
   align(
     center,
     text(
-      font: 字体.黑体,
-      size: 字号.小二,
+      font: 黑体,
+      size: 小二,
       "汕头大学本科生毕业论文（设计）诚信承诺书",
     ),
   )
 
-  v(字号.小四)
+  v(小四)
 
   block[
-    #set text(font: 字体.楷体, size: 字号.小三)
+    #set text(font: 楷体, size: 小三)
     // #set par(justify: true, first-line-indent: (amount: 2em, all: true), leading: 2.42em)
     //设置首行缩进两个字符，行距为双倍行距,对齐方式为双端对齐
     #set par(

@@ -1,8 +1,8 @@
-#import "config.typ": 字体, 字号
+#import "font_config.typ": *
 
 #let fakebold(s) = {
   context {
-    set text(font: 字体.黑体, size: 字号.小四, weight: "bold")
+    set text(font: 黑体, size: 小四, weight: "bold")
     s
   }
 }
@@ -23,25 +23,25 @@
 ) = {
   // 1.  默认参数
   [
-    #set text(font: 字体.宋体, size: 字号.小四)
+    #set text(font: 宋体, size: 小四)
     #set par(leading: leading, justify: true, spacing: spacing)
     #set page(
       footer: context [
         #set align(center)
-        #set text(font: 字体.宋体, size: 字号.小五)
+        #set text(font: 宋体, size: 小五)
         #counter(page).display("I")
       ],
     )
 
     //显示题目
     #align(center)[
-      #set text(font: 字体.宋体, size: 字号.二号, weight: "bold")
+      #set text(font: 宋体, size: 二号, weight: "bold")
       #info.title-en
       #v(22pt)
     ]
     //显示中间的摘要二字
     #align(center)[
-      #set text(font: 字体.黑体, size: 字号.小二, weight: "bold")
+      #set text(font: 黑体, size: 小二, weight: "bold")
       Abstract
     ]
 

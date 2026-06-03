@@ -1,4 +1,4 @@
-#import "config.typ": 字体, 字号
+#import "font_config.typ": *
 
 /************论文封面************/
 
@@ -31,8 +31,8 @@
       stroke: none, // 无边框线
       text(
         // 文本内容
-        font: 字体.宋体, // 楷体
-        size: 字号.三号, // 三号字（约16pt）
+        font: 宋体, // 楷体
+        size: 三号, // 三号字（约16pt）
         body, // 接收的文本内容
       ),
     )
@@ -45,8 +45,8 @@
       inset: (x: 0pt, bottom: 1pt), // 左右无内边距，底部内边距为0pt
       stroke: (bottom: 0.5pt + black), // 底部边框：0.5pt黑色实线（常用于分隔线）
       text(
-        font: 字体.宋体,
-        size: 字号.三号,
+        font: 宋体,
+        size: 三号,
         bottom-edge: "descender", // 文本基线对齐（避免字符下沉导致的间距不均）
         body,
       ),
@@ -60,8 +60,8 @@
       inset: (x: 0pt, bottom: 0pt), // 左右无内边距，底部内边距为0pt
       stroke: none, // 无边框线
       text(
-        font: 字体.宋体,
-        size: 字号.三号,
+        font: 宋体,
+        size: 三号,
         bottom-edge: "descender", // 文本基线对齐（避免字符下沉导致的间距不均）
         body,
       ),
