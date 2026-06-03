@@ -1,4 +1,4 @@
-#import "lib/config.typ": 字体, 字号
+#import "lib/font_config.typ": *
 #import "lib/algo.typ": algo, comment, d, i
 
 #let template-main(info, text-body) = {
@@ -26,9 +26,7 @@
       college: "工学院",
       department: "电子工程系",
       supervisor: "李四教授",
-      submit-date: datetime
-        .today()
-        .display("[year]年[month padding:none]月[day padding:none]日"),
+      submit-date: datetime.today().display("[year]年[month padding:none]月"),
       abstract: [
         学位论文是学生从事科研工作、工程实践的成果的主要表现，集中表明了作者在工作、实践中获得的新的发明、理论或见解，是学生申请学生、硕士或博士学位的重要依据，也是科研领域中的重要文献资料和社会的宝贵财富。
 
