@@ -82,6 +82,7 @@
 
 
 == 算法环境
+
 我们可以在论文中插入算法，可在学要插入算法的地方使用 `algo` 环境。
 #import "@preview/stu-bachelor-thesis:0.1.0": algo, comment, d, i
 #algo(
@@ -105,30 +106,30 @@
 
 == 代码环境
 
-我们可以在论文中插入算法，但是不建议插入大段的代码。如果确实需要插入代码，推荐使用 `codly` 包插入代码。
-
+我们可以在论文中插入算法，但是不建议插入大段的代码。如果确实需要插入代码，推荐使用 `codly` 包插入代码，需要访问GitHub来下载相应的包，这里仅给出编写的方法。
+````typst
 #import "@preview/codly:1.3.0": *
 #import "@preview/codly-languages:0.1.10": *
 #show: codly-init
 #codly(languages: codly-languages)
-
 #block(breakable: false)[
-  ```python
-  def fibonacci(n: int) -> int:
-      # 输入：整数 n
-      # 输出：Fibonacci 数列的第 n 项
+```python
+def fibonacci(n: int) -> int:
+    # 输入：整数 n
+    # 输出：Fibonacci 数列的第 n 项
 
-      if n == 0:
-          return 0
-      if n == 1:
-          return 1
+    if n == 0:
+        return 0
+    if n == 1:
+        return 1
 
-      a = 0
-      b = 1
-      for i in range(2, n + 1):
-          tmp = a + b
-          a = b
-          b = tmp
-      return b
-  ```
+    a = 0
+    b = 1
+    for i in range(2, n + 1):
+        tmp = a + b
+        a = b
+        b = tmp
+    return b
+```
 ]
+````

@@ -1,19 +1,24 @@
-#import "@preview/stu-bachelor-thesis:0.1.0": template-main
-#import "lib/references.typ": setup-bibliography
-
-#[
-  #show: template-main.with(
+#{
+  import "@preview/stu-bachelor-thesis:0.1.0": template-main
+  /************正文************/
+  let text-content = {
+    include "chapter_1.typ"
+    include "chapter_2.typ"
+    include "chapter_3.typ"
+    include "chapter_4.typ"
+  }
+  show: template-main.with(
     /************封面&致谢************/
     (
       title: "汕头大学学位论文格式模板",
       title-en: "Shantou University Dissertation Format Template",
-      gradeandmajor: "电子信息工程　20XX级",
+      gradeandmajor: "电子信息工程　2021级",
       student-id: "2021123456",
       author: "张三",
       college: "工学院",
       department: "电子工程系",
       supervisor: "李四教授",
-      //submit-date: "2026年5月1日", // 默认直接使用当前日期，取消注释以设置日期
+      submit-date: datetime(year: 2026, month: 5, day: 2),
 
       /*摘要相关*/
       abstract: [
@@ -45,23 +50,21 @@
         "standardization",
         "template",
       ),
-      thanks-body: [
-        //致谢
-        首先，感谢李四老师在这次毕业论文中对我耐心而专业的指导，李四老师在论文写作流程和方法方面对我的教导让我受益匪浅，从而顺利完成本次毕业论文。我认为一篇论文不能代表我在电子信息工程方面的水平，更不应该止步于此，而是要学习李四老师不断学习的精神和勤奋求真的治学态度，在电子信息工程领域开拓进取，学以致用，成为该领域的人才，不负李四老师的谆谆教诲。
+      acknowledgements: {
+        include "acknowledgements.typ" //致谢，请在"acknowledgements.typ"文件里面写致谢
+      },
+      bib: bibliography(
+        style: "gb-7714-2005-numeric",
+        title: none,
+        "ref.bib",
+      ),
+      /***可选项(Optional)***/
+      //封面内容宽度。若出现封面内容超出横线，则可以尝试通过取消下面的注释尝试解决。
+      //cover-width: 80%
 
-        其次，感谢本班学习委员和给我帮助的所有同学，班长和学习委员为我解答了很多我不熟悉的难题，很多同学也为我送来相关资料和论文写作技巧，让我体会到同学之间互帮互助、团结奋进的真挚友情，这种温暖、团结、进取的学习气氛，让我感动，让我一生铭记。
-
-        最后感谢我的家人，是他们多年来对我学业的支持才让我走到这一步，才使我得以顺利完成学业。
-      ],
+      //是否添加封底空白页，默认true，可以通过取消下面的注释来去掉封底空白页。
+      //add-back-cover: false,
     ),
   )
-
-  /************正文************/
-  #include "chapter_1.typ"
-  #include "chapter_2.typ"
-  #include "chapter_3.typ"
-  #include "chapter_4.typ"
-]
-
-/****参考文献****/
-#setup-bibliography("ref.bib")//不需要变动，直接把需要引用的文献导入到ref.bib文件
+  text-content
+}
