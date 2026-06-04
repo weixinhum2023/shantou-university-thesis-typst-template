@@ -23,6 +23,15 @@
 #let 宋体 = ((name: "Times New Roman", covers: "latin-in-cjk"), "SimSun") //表示先用 Times New Roman 渲染拉丁字符，再用 SimSun 渲染中文字符
 #let 黑体 = ((name: "Times New Roman", covers: "latin-in-cjk"), "SimHei")
 #let 楷体 = ((name: "Times New Roman", covers: "latin-in-cjk"), "KaiTi")
+
+//中文字体伪加粗
+#let cn-fake-bold(s) = {
+  show text.where(weight: "bold").or(strong): it => {
+    show regex("[\p{script=Han}！-･〇-〰—]+"): set text(stroke: 0.02857em)
+    it
+  }
+  s
+}
 // // 等宽字体，用于代码块环境，一般可以等同于英文中的 Monospaced Font
 // // 这一行分别是「Courier New（Windows 等宽英文字体）」、「思源等宽黑体（简体）」、「思源等宽黑体」、「黑体（Windows）」、「黑体（MacOS）」
 // 等宽: ((name: "Courier New", covers: "latin-in-cjk"), (name: "Menlo", covers: "latin-in-cjk"), (name: "IBM Plex Mono", covers: "latin-in-cjk"), "Source Han Sans HW SC", "Source Han Sans HW", "Noto Sans Mono CJK SC", "SimHei", "Heiti SC", "STHeiti"),
