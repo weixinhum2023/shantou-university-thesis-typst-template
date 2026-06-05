@@ -1,5 +1,5 @@
 #{
-  import "@preview/stu-bachelor-thesis:0.1.0": template-main
+  import "@preview/unofficial-stu-bachelor-thesis:0.1.0": template-main
   /************正文************/
   let text-content = {
     include "chapter_1.typ"

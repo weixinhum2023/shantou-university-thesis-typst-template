@@ -84,7 +84,7 @@
 == 算法环境
 
 我们可以在论文中插入算法，可在学要插入算法的地方使用 `algo` 环境。
-#import "@preview/stu-bachelor-thesis:0.1.0": algo, comment, d, i
+#import "@preview/unofficial-stu-bachelor-thesis:0.1.0": algo, comment, d, i
 #algo(
   line-numbers: false,
   strong-keywords: false,
