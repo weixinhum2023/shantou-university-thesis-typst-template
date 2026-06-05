@@ -107,8 +107,8 @@
   set text(font: 宋体) // 正文字体设置为宋体
   set par(
     justify: true,
-    first-line-indent: 2em,
-    leading: 小四 * 1.25, // 1.25倍行距 = 字号 + 字号*0.25
+    first-line-indent: (amount: 2em, all: true),
+    leading: 0.975em, // 1.25倍行距 = 字号 + 字号*0.25
     linebreaks: "simple",
   ) // 两端对齐，段前缩进2字符
 

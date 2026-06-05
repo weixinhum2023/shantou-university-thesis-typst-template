@@ -9,14 +9,15 @@
   }
 
   heading(level: 2, numbering: none)[致#h(1em)谢]
+
   v(三号)
 
-  /************正文格式设置************/
-  set text(size: 小四) // 正文字号设置为小四
+  set text(size: 小四)
   set par(
     justify: true,
-    first-line-indent: 2em,
-    leading: 小四 * 1.25, // 1.25倍行距 = 字号 + 字号*0.25
+    first-line-indent: (amount: 2em, all: true),
+    leading: 0.975em,
+    linebreaks: "simple",
   ) // 两端对齐，段前缩进2字符
   body
 }
