@@ -90,7 +90,7 @@
   show: cn-fake-bold
 
   //居左的logo
-  align(left, image(width: 5.51cm, height: 1.73cm, "STU_logo.jpg"))
+  align(left, info.stu_logo)
 
   //输入一个空行，大小为四号字体
   v(四号)
