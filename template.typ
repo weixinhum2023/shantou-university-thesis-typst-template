@@ -8,6 +8,7 @@
   import "lib/catalog.typ": *
   import "lib/main_text.typ": *
   import "lib/thanks_page.typ": *
+  import "lib/auth_use.typ": *
 
   info = (
     (
@@ -40,6 +41,7 @@
       acknowledgements: "",
       bib: "",
       cover-width: 60%,
+      generate-auth-use-page: false,
       add-back-cover: true,
     )
       + info
@@ -49,6 +51,10 @@
   bachelor-cover(
     info: info,
   )
+
+  if info.generate-auth-use-page {
+    auth-use-page()
+  }
 
   info.title = if type(info.title) == str [#info.title] else if (
     type(info.title) == array
