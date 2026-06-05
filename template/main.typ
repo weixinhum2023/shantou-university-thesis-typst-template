@@ -7,10 +7,15 @@
     include "chapter_3.typ"
     include "chapter_4.typ"
   }
+  /************封面&模板设置************/
   show: template-main.with(
-    /************封面&致谢************/
     (
       title: "汕头大学学位论文格式模板",
+      //推荐使用下面的格式编写题目，因为设置了自动换行，使用下面的格式可以避免分行
+      //title: ("基于Typst的", "汕头大学学位论文模板"),
+      //如果确实需要单行书写，则可以使用下面的格式
+      //title: ("汕头大学学位论文模板格式", ""),
+      //但是这依旧会使得封面题目当中出现两条线，这是因为汕大的模板里面本身就是两条线的
       title-en: "Shantou University Dissertation Format Template",
       gradeandmajor: "电子信息工程　2021级",
       student-id: "2021123456",
@@ -18,7 +23,10 @@
       college: "工学院",
       department: "电子工程系",
       supervisor: "李四教授",
-      submit-date: datetime(year: 2026, month: 5, day: 2),
+      //请从学校的Word模板里面提取校徽文件替换"figures/STU_logo.jpg"文件
+      stu_logo: image(width: 5.51cm, height: 1.73cm, "figures/STU_logo.jpg"),
+      //日期设置，默认使用当前日期，通过取消注释以更改生成的毕业论文日期
+      //submit-date: datetime(year: 2026, month: 5, day: 2),
 
       /*摘要相关*/
       abstract: [
@@ -27,7 +35,8 @@
 
         为了提高学生学位论文的质量，做到学位论文在内容和格式上的规范化与统一化，特制作本模板。
       ],
-      keywords: ("学位论文", "论文格式", "规范化", "模板"), //中文关键词
+      //中文关键词
+      keywords: ("学位论文", "论文格式", "规范化", "模板"),
       abstract-en: [
         //英文摘要
         A dissertation is a primary manifestation of students' achievements
@@ -50,20 +59,28 @@
         "standardization",
         "template",
       ),
+
+      //致谢，请在"acknowledgements.typ"文件里面写致谢
       acknowledgements: {
-        include "acknowledgements.typ" //致谢，请在"acknowledgements.typ"文件里面写致谢
+        include "acknowledgements.typ"
       },
+
+      //参考文献参数传递，写作不需要管，只需要在"ref.bib"里面写上bib格式的参考文献即可
       bib: bibliography(
         style: "gb-7714-2005-numeric",
         title: none,
         "ref.bib",
       ),
-      /***可选项(Optional)***/
-      //封面内容宽度。若出现封面内容超出横线，则可以尝试通过取消下面的注释尝试解决。
-      //cover-width: 80%
 
-      //是否添加封底空白页，默认true，可以通过取消下面的注释来去掉封底空白页。
+      /***可选项(Optional Settings)***/
+      //封面内容宽度。若出现封面内容超出横线，则可以尝试通过取消下面的注释尝试解决。
+      //cover-width: 80%,
+
+      //是否添加封底空白页，默认true，也就是默认添加封底空白页可以通过取消下面的注释来去掉封底空白页。
       //add-back-cover: false,
+
+      //是否添加授权使用说明页，默认值是false，也就是不添加授权使用说明页，通过取消注释以添加授权使用说明页。
+      //generate-auth-use-page: true,
     ),
   )
   text-content
