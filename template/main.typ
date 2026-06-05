@@ -1,19 +1,32 @@
-#import "@preview/stu-bachelor-thesis:0.1.0": template-main
-#import "lib/references.typ": setup-bibliography
-
-#[
-  #show: text-body => template-main(
-    /************封面&致谢************/
+#{
+  import "@preview/unofficial-stu-bachelor-thesis:0.1.0": template-main
+  /************正文************/
+  let text-content = {
+    include "chapter_1.typ"
+    include "chapter_2.typ"
+    include "chapter_3.typ"
+    include "chapter_4.typ"
+  }
+  /************封面&模板设置************/
+  show: template-main.with(
     (
       title: "汕头大学学位论文格式模板",
+      //推荐使用下面的格式编写题目，因为设置了自动换行，使用下面的格式可以避免分行
+      //title: ("基于Typst的", "汕头大学学位论文模板"),
+      //如果确实需要单行书写，则可以使用下面的格式
+      //title: ("汕头大学学位论文模板格式", ""),
+      //但是这依旧会使得封面题目当中出现两条线，这是因为汕大的模板里面本身就是两条线的
       title-en: "Shantou University Dissertation Format Template",
-      gradeandmajor: "电子信息工程　20XX级",
+      gradeandmajor: "电子信息工程　2021级",
       student-id: "2021123456",
       author: "张三",
       college: "工学院",
       department: "电子工程系",
       supervisor: "李四教授",
-      //submit-date: "2026年5月1日", // 默认直接使用当前日期，取消注释以设置日期
+      //请从学校的Word模板里面提取校徽文件替换"figures/STU_logo.jpg"文件
+      stu_logo: image(width: 5.51cm, height: 1.73cm, "figures/STU_logo.jpg"),
+      //日期设置，默认使用当前日期，通过取消注释以更改生成的毕业论文日期
+      //submit-date: datetime(year: 2026, month: 5, day: 2),
 
       /*摘要相关*/
       abstract: [
@@ -22,7 +35,8 @@
 
         为了提高学生学位论文的质量，做到学位论文在内容和格式上的规范化与统一化，特制作本模板。
       ],
-      keywords: ("学位论文", "论文格式", "规范化", "模板"), //中文关键词
+      //中文关键词
+      keywords: ("学位论文", "论文格式", "规范化", "模板"),
       abstract-en: [
         //英文摘要
         A dissertation is a primary manifestation of students' achievements
@@ -45,28 +59,29 @@
         "standardization",
         "template",
       ),
-      thanks-body: [
-        //致谢
-        首先，感谢李四老师在这次毕业论文中对我耐心而专业的指导，李四老师在论文写作流程和方法方面对我的教导让我受益匪浅，从而顺利完成本次毕业论文。我认为一篇论文不能代表我在电子信息工程方面的水平，更不应该止步于此，而是要学习李四老师不断学习的精神和勤奋求真的治学态度，在电子信息工程领域开拓进取，学以致用，成为该领域的人才，不负李四老师的谆谆教诲。
 
-        其次，感谢本班学习委员和给我帮助的所有同学，班长和学习委员为我解答了很多我不熟悉的难题，很多同学也为我送来相关资料和论文写作技巧，让我体会到同学之间互帮互助、团结奋进的真挚友情，这种温暖、团结、进取的学习气氛，让我感动，让我一生铭记。
+      //致谢，请在"acknowledgements.typ"文件里面写致谢
+      acknowledgements: {
+        include "acknowledgements.typ"
+      },
 
-        最后感谢我的家人，是他们多年来对我学业的支持才让我走到这一步，才使我得以顺利完成学业。
-      ],
+      //参考文献参数传递，写作不需要管，只需要在"ref.bib"里面写上bib格式的参考文献即可
+      bib: bibliography(
+        style: "gb-7714-2005-numeric",
+        title: none,
+        "ref.bib",
+      ),
+
+      /***可选项(Optional Settings)***/
+      //封面内容宽度。若出现封面内容超出横线，则可以尝试通过取消下面的注释尝试解决。
+      //cover-width: 80%,
+
+      //是否添加封底空白页，默认true，也就是默认添加封底空白页可以通过取消下面的注释来去掉封底空白页。
+      //add-back-cover: false,
+
+      //是否添加授权使用说明页，默认值是false，也就是不添加授权使用说明页，通过取消注释以添加授权使用说明页。
+      //generate-auth-use-page: true,
     ),
-    text-body,
   )
-
-  /************正文************/
-  #import "chapter_1.typ": *
-  #import "chapter_2.typ": *
-  #import "chapter_3.typ": *
-  #import "chapter_4.typ": *
-  #Chapter_one;//显示第一章内容
-  #Chapter_two;//显示第二章内容
-  #Chapter_three;//显示第三章内容
-  #Chapter_four;//显示第四章内容
-]
-
-/****参考文献****/
-#setup-bibliography("ref.bib")//不需要变动，直接把需要引用的文献导入到ref.bib文件
+  text-content
+}

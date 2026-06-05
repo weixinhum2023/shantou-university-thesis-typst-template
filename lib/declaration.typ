@@ -1,4 +1,4 @@
-#import "config.typ": 字体, 字号
+#import "font_config.typ": *
 
 #let bachelor-decl-page(
   info: (:
@@ -14,8 +14,7 @@
       stroke: none, // 无边框线
       text(
         // 文本内容
-        font: 字体.楷体, // 楷体
-        size: 字号.小三,
+        size: 小三,
         body, // 接收的文本内容
       ),
     )
@@ -27,34 +26,44 @@
       inset: (x: 0pt, bottom: 1pt), // 左右无内边距，底部内边距为0pt
       stroke: (bottom: 0.5pt + black), // 底部边框：0.5pt黑色实线（常用于分隔线）
       text(
-        font: 字体.楷体, // 楷体
-        size: 字号.小三,
+        size: 小三,
         bottom-edge: "descender", // 文本基线对齐（避免字符下沉导致的间距不均）
         body,
       ),
     )
   }
 
+  //页面设置
+  set page(
+    margin: (top: 2.54cm, bottom: 2.54cm, left: 2.5cm, right: 2.5cm),
+    header: rect(width: 100%, stroke: (bottom: (0.5pt + black)), text(
+      size: 小五,
+      font: 宋体,
+      bottom-edge: "descender",
+    )[汕头大学教务处ISO质量记录表#h(1fr)STU-TA-QR-301-5-V1.0]),
+  )
+  set text(font: 楷体)
   // 渲染
   align(
     center,
     text(
-      font: 字体.黑体,
-      size: 字号.小二,
+      font: 黑体,
+      size: 小二,
       "汕头大学本科生毕业论文（设计）诚信承诺书",
     ),
   )
 
-  v(字号.小四)
+  v(小四)
 
+  set text(size: 小三)
   block[
-    #set text(font: 字体.楷体, size: 字号.小三)
     // #set par(justify: true, first-line-indent: (amount: 2em, all: true), leading: 2.42em)
     //设置首行缩进两个字符，行距为双倍行距,对齐方式为双端对齐
     #set par(
       justify: true,
       first-line-indent: (amount: 2em, all: true),
       leading: 1.5em,
+      linebreaks: "simple",
     )
 
     本人承诺呈交的毕业论文（设计） 《#info.title》是在指导教师的指导下，独立开展研究取得的成果，文中引用他人的观点和材料，均在文后按顺序列出其参考文献，论文（设计）使用的数据真实可靠。

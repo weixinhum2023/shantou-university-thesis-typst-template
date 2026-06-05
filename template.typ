@@ -1,7 +1,6 @@
-#import "lib/config.typ": 字体, 字号
 #import "lib/algo.typ": algo, comment, d, i
-
 #let template-main(info, text-body) = {
+  import "lib/font_config.typ": *
   import "lib/cover.typ": *
   import "lib/declaration.typ": *
   import "lib/chinese_abstract.typ": *
@@ -9,26 +8,19 @@
   import "lib/catalog.typ": *
   import "lib/main_text.typ": *
   import "lib/thanks_page.typ": *
-
-  // 设置页面的页边距为顶边距2.5cm，右边距2.0cm，底边距2.0cm，左边距2.5cm。
-  set page(
-    paper: "a4",
-    margin: (top: 2.5cm, right: 2.0cm, bottom: 2.0cm, left: 2.5cm),
-  )
+  import "lib/auth_use.typ": *
 
   info = (
     (
       title: "汕头大学学位论文格式模板",
       title-en: "Shantou University Dissertation Format Template",
-      gradeandmajor: "电子信息工程　20XX级",
+      gradeandmajor: "电子信息工程　2021级",
       student-id: "2021123456",
       author: "张三",
       college: "工学院",
       department: "电子工程系",
       supervisor: "李四教授",
-      submit-date: datetime
-        .today()
-        .display("[year]年[month padding:none]月[day padding:none]日"),
+      submit-date: datetime.today(),
       abstract: [
         学位论文是学生从事科研工作、工程实践的成果的主要表现，集中表明了作者在工作、实践中获得的新的发明、理论或见解，是学生申请学生、硕士或博士学位的重要依据，也是科研领域中的重要文献资料和社会的宝贵财富。
 
@@ -46,13 +38,11 @@
         "standardization",
         "template",
       ),
-      thanks-body: [
-        首先，感谢张三老师在这次毕业论文中对我耐心而专业的指导，张三老师在论文写作流程和方法方面对我的教导让我受益匪浅，从而顺利完成本次毕业论文。我认为一篇论文不能代表我在电子信息工程方面的水平，更不应该止步于此，而是要学习张三老师不断学习的精神和勤奋求真的治学态度，在电子信息工程领域开拓进取，学以致用，成为该领域的人才，不负张三老师的谆谆教诲。
-
-        其次，感谢本班学习委员和给我帮助的所有同学，班长和学习委员为我解答了很多我不熟悉的难题，很多同学也为我送来相关资料和论文写作技巧，让我体会到同学之间互帮互助、团结奋进的真挚友情，这种温暖、团结、进取的学习气氛，让我感动，让我一生铭记。
-
-        最后感谢我的家人，是他们多年来对我学业的支持才让我走到这一步，才使我得以顺利完成学业。
-      ],
+      acknowledgements: "",
+      bib: "",
+      cover-width: 60%,
+      generate-auth-use-page: false,
+      add-back-cover: true,
     )
       + info
   )
@@ -61,6 +51,10 @@
   bachelor-cover(
     info: info,
   )
+
+  if info.generate-auth-use-page {
+    auth-use-page()
+  }
 
   info.title = if type(info.title) == str [#info.title] else if (
     type(info.title) == array
@@ -79,24 +73,77 @@
     info: info,
   )
 
-  /************中文摘要页************/
-  bachelor-abstract-ch(
-    info: info,
-  )[#info.abstract]
+  // 设置页面的页边距为顶边距2.5cm，右边距2.0cm，底边距2.0cm，左边距2.5cm。
+  set page(
+    paper: "a4",
+    margin: (top: 2.5cm, right: 2.0cm, bottom: 2.0cm, left: 2.5cm),
+  )
+  set text(font: 宋体, lang: "zh")
+  {
+    set page(
+      footer: context {
+        set align(center)
+        set text(font: 宋体, size: 小五)
+        counter(page).display("I")
+      },
+    )
+    /************中文摘要页************/
+    bachelor-abstract-ch(
+      info: info,
+      info.abstract,
+    )
 
-  /************英文摘要页************/
-  bachelor-abstract-en(
-    info: info,
-  )[#info.abstract-en]
+    /************英文摘要页************/
+    bachelor-abstract-en(
+      info: info,
+      info.abstract-en,
+    )
 
-  /************目录页************/
-  setup-outline()
+    /************目录页************/
+    setup-outline()
+  }
 
-  /************正文************/
-  setup-bodytext[
-    #text-body
-  ]
+  {
+    /************页脚设置************/
+    set page(
+      footer: context {
+        set align(center)
+        set text(size: 小五, font: 宋体)
+        counter(page).display("1")
+      },
+    )
 
-  /************致谢************/
-  setup-thanks[#info.thanks-body]
+    /************正文************/
+    setup-bodytext(text-body)
+
+    //参考文献页设置
+    show bibliography: it => {
+      pagebreak(weak: true)
+      set page(footer: context {
+        set align(center)
+        set text(size: 小五, font: 宋体)
+        counter(page).display("1")
+      })
+      show heading.where(level: 2): it => {
+        set align(left)
+        set text(font: 黑体, size: 小四)
+        it
+      }
+
+      heading(level: 2, numbering: none)[参考文献]
+
+      set text(font: 宋体, size: 小五)
+      set block(above: 1.25em, below: 1.25em)
+      set par(justify: true, first-line-indent: 2em)
+      it
+    }
+    info.bib
+    /************致谢************/
+    setup-thanks(info.acknowledgements)
+  }
+
+  /***封底***/
+  if info.add-back-cover {
+    pagebreak()
+  }
 }
