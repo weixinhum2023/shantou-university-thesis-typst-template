@@ -1,5 +1,5 @@
 [package]
-name = "stu-bachelor-thesis"
+name = "unofficial-stu-bachelor-thesis"
 version = "0.1.0"
 entrypoint = "template.typ"
 authors = [
