@@ -1,10 +1,21 @@
-# 使用说明
+# 简要说明
+
+This is the Typst template for undergraduate theses at Shantou University.
+Welcome to use.
+
+这是汕头大学本科生毕业论文的Typst模板，欢迎同学使用。
+
+校徽文件请在word模板当中提取，替换掉`figures/STU_logo.jpg`文件即可。
+
+## 使用说明
 
 有问题需要提问时，请在提问前***完整阅读使用说明***。
 
-## 模板使用
+### 通过Typst包管理直接使用(需要科学上网)
 
 推荐可以访问`GitHub`且具备一定动手能力的同学使用。
+
+Recommended for students who can access `GitHub` and have some hands-on ability.
 
 安装好`typst`后输入：
 
@@ -16,7 +27,14 @@ cd my-thesis
 推荐需要提交的版本使用`Windows`系统进行编译。
 其它系统可能会缺少相应字体。
 
-## 程序安装
+### 通过Gitee镜像使用
+
+**本节仅对因网络问题无法访问GitHub而使用Gitee镜像的同学作说明。注意， 若需要导入如`codly`等其它的包，仍然需要科学上网**。
+
+**This section is only intended for students who use the Gitee mirror due to
+being unable to access GitHub because of network issues. Note that if you need to
+import other packages such as `codly`, you still need to access the internet
+through a VPN.**
 
 直接下载打包好的程序包，解压后如下图所示：
 
@@ -34,25 +52,32 @@ cd my-thesis
 
 ![图 4](./images/3.png)
 
-## 论文封面、声明页、中英文摘要
+### 论文封面、声明页、中英文摘要
 
 论文封面、声明页、中英文摘要相关的内容如下所示，需要将各项内容修改为自己的信息。
 需要注意的是，由于typst的分词分段机制，摘要中如果需要换行，需要隔一行写入内容。
 详细说明见下面代码的注释。
 
 ```typst
-#show: text-body => template-main(
-  /************封面************/
+#show: template-main.with(
   (
     title: "汕头大学学位论文格式模板",
+    //推荐使用下面的格式编写题目，因为设置了自动换行，使用下面的格式可以避免分行
+    //title: ("基于Typst的", "汕头大学学位论文模板"),
+    //如果确实需要单行书写，则可以使用下面的格式
+    //title: ("汕头大学学位论文模板格式", ""),
+    //但是这依旧会使得封面题目当中出现两条线，这是因为汕大的模板里面本身就是两条线的
     title-en: "Shantou University Dissertation Format Template",
-    gradeandmajor: "电子信息工程　20XX级",
+    gradeandmajor: "电子信息工程　2021级",
     student-id: "2021123456",
     author: "张三",
     college: "工学院",
     department: "电子工程系",
     supervisor: "李四教授",
-    //submit-date: "2026年5月1日", // 默认直接使用当前日期，取消注释以设置日期
+    //请从学校的Word模板里面提取校徽文件替换"figures/STU_logo.jpg"文件
+    stu_logo: image(width: 5.51cm, height: 1.73cm, "figures/STU_logo.jpg"),
+    //日期设置，默认使用当前日期，通过取消注释以更改生成的毕业论文日期
+    //submit-date: datetime(year: 2026, month: 5, day: 2),
 
     /*摘要相关*/
     abstract: [
@@ -61,7 +86,8 @@ cd my-thesis
 
       为了提高学生学位论文的质量，做到学位论文在内容和格式上的规范化与统一化，特制作本模板。
     ],
-    keywords: ("学位论文", "论文格式", "规范化", "模板"), //中文关键词
+    //中文关键词
+    keywords: ("学位论文", "论文格式", "规范化", "模板"),
     abstract-en: [
       //英文摘要
       A dissertation is a primary manifestation of students' achievements
@@ -84,52 +110,52 @@ cd my-thesis
       "standardization",
       "template",
     ),
+
+    //致谢，请在"acknowledgements.typ"文件里面写致谢
+    acknowledgements: {
+      include "acknowledgements.typ"
+    },
+
+    //参考文献参数传递，写作不需要管，只需要在"ref.bib"里面写上bib格式的参考文献即可
+    bib: bibliography(
+      style: "gb-7714-2005-numeric",
+      title: none,
+      "ref.bib",
+    ),
   ),
-  text-body,
 )
 ```
 
-## 论文目录页
+### 论文目录页
 
 已通过`setup-outline()`函数封装并且已经被封装进`template-main()`函数。
 
-## 论文正文
+### 论文正文
 
 论文正文通过章节形式进行组织。通过修改`chapter_1.typ`、`chapter_2.typ`、`chapter_3.typ`中的具体内容进行修改即可。
 
 如果论文的内容不止三章，可新建文件，如`chapter_4.typ`，然后写入如下内容：
 
 ```typst
-#let Chapter_four = [
-  = 第四章
-]
+= 第四章
 ```
 
-随后在`main.typ`的最上方引入该章节的内容：
+随后在`main.typ`的`text-content`当中`include`即可。
 
 ```typst
-#import "chapter_4.typ": *
+#let text-content = {
+  include "chapter_1.typ"
+  include "chapter_2.typ"
+  include "chapter_3.typ"
+  include "chapter_4.typ"
+}
 ```
 
-再在`main.typ`中添加`Chapter_four`即可：
+### 参考文献
 
-```typst
-/************正文************/
-#Chapter_one;//显示第一章内容
-#Chapter_two;//显示第二章内容
-#include "chapter_3.typ"//显示第三章内容
-#Chapter_four;//显示第四章内容
-```
+和目录页类似，已被模板函数封装，无须再操作。
 
-## 参考文献
-
-和目录页类似，已通过`setup-bibliography()`函数封装，通过调用该函数即可生成参考文献：
-
-```typst
-#setup-bibliography("ref.bib")
-```
-
-## 输出pdf格式文档
+### 输出pdf格式文档
 
 点击VSCode上方的`终端`按钮->选择`新建终端`->在终端中输入如下代码即可实现pdf文件的生成：
 
@@ -137,9 +163,9 @@ cd my-thesis
 typst c --font-path ./fonts template.typ
 ```
 
-## 格式说明
+### 格式说明
 
-### 标题说明
+#### 标题说明
 
 typst通过`=`号标注文字为标题，一个`=`表示一级标题，两个`=`组成的`==`则表示二级标题。本模板规定一级标题为章节名称，因此在每一章的开头必须先写一个一级标题如下：
 
@@ -149,7 +175,7 @@ typst通过`=`号标注文字为标题，一个`=`表示一级标题，两个`=`
 
 此外，本模板最高支持五级标题，即`===== xx`，注意***不可超过五级标题***。
 
-### 数学符号
+#### 数学符号
 
 不同于Word和LaTeX，Typst具有特殊的数学语法和库函数，用于排版数学公式。具体语法可查询
 [https://typst.dev/docs/reference/math/](https://typst.dev/docs/reference/math/ "https://typst.dev/docs/reference/math/")
@@ -163,7 +189,7 @@ typst通过`=`号标注文字为标题，一个`=`表示一级标题，两个`=`
 
 然后通过`@equation1`来对公式进行引用，这一操作在正文中将显示为`式x`。
 
-### 引用参考文献
+#### 引用参考文献
 
 参考文献通过`ref.bib`进行管理，bib中的文献格式为BibTeX，该格式可通过学术网站直接下载。
 比如使用百度学术搜索神经辐射场的文章：*NeRF: Representing Scenes as
@@ -177,7 +203,7 @@ Neural Radiance Fields for View Synthesis*，随后点击引用并选择BibTeX�
 
 将文章的BibTeX内容复制到bib文件中后，可通过`@`符号进行引用，比如`@2020NeRF`。
 
-### 插入图片
+#### 插入图片
 
 在typst中插入图片很简单，输入如下代码即可：
 
@@ -193,11 +219,11 @@ Neural Radiance Fields for View Synthesis*，随后点击引用并选择BibTeX�
 
 在正文中通过`@`符号进行引用，比如`@energy-distribution`。
 
-### 插入表格
+#### 插入表格
 
 根据汕头大学毕业论文格式规范，文章中的表格可使用三线表和普通表。
 
-#### 三线表示例如下：
+##### 三线表示例如下：
 
 ```typst
 #figure(
@@ -231,7 +257,7 @@ Neural Radiance Fields for View Synthesis*，随后点击引用并选择BibTeX�
 ) <threelinetable>
 ```
 
-#### 普通表示例如下：
+##### 普通表示例如下：
 
 ```typst
 #figure(
@@ -260,7 +286,7 @@ Neural Radiance Fields for View Synthesis*，随后点击引用并选择BibTeX�
 
 表格的引用与图片类似，不再赘述。
 
-### 脚注
+#### 脚注
 
 可通过`#footnote[]`标识引入脚注，脚注的具体内容写在方括号内部，如下所示：
 
@@ -270,7 +296,7 @@ Neural Radiance Fields for View Synthesis*，随后点击引用并选择BibTeX�
   三线表通常只有 3 条线，即顶线、底线和栏目线，没有竖线。]，如@threelinetable 所示。
 ```
 
-### 算法环境
+#### 算法环境
 
 按行文规范，论文中不应该出现代码，如果需要对算法进行说明，需要使用算法描述环境进行描述，本模板提供`algo`环境进行实现：
 
@@ -296,9 +322,9 @@ Neural Radiance Fields for View Synthesis*，随后点击引用并选择BibTeX�
 ]
 ```
 
-### 代码环境
+#### 代码环境
 
-再次强调，**代码不应该出现在论文中，尤其不应该大面积贴代码以凑页数**！如果需要通过代码说明问题，需要使用伪代码，本模板提供通过引入`codly`包实现：
+再次强调，**代码不应该出现在论文中，尤其不应该大面积贴代码以凑页数**！如果需要通过代码说明问题，需要使用伪代码，可以通过引入`codly`包实现：
 
 ````typst
 #import "@preview/codly:1.3.0": *
@@ -327,3 +353,7 @@ Neural Radiance Fields for View Synthesis*，随后点击引用并选择BibTeX�
   ```
 ]
 ````
+
+## 鸣谢
+
+[cuti](https://github.com/csimide/cuti):为实现中文加粗效果提供了思路。
